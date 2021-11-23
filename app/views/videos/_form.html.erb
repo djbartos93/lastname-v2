@@ -1,0 +1,44 @@
+<%= form_for @video do |f| %>
+  <% if @video.errors.any? %>
+    <ul class="list-unstyled alert alert-danger">
+      <% @video.errors.full_messages.each do |message| %>
+        <li>Album <%= message %></li>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <div class="mb-3">
+    <%= f.label :name, class: "form-label" %>
+    <%= f.text_field :name, class: "form-control" %>
+  </div>
+
+  <div data-controller="single-upload" data-single-upload-types-value="<%= VideoUploader::ALLOWED_TYPES.to_json %>" data-single-upload-server-value="<%= upload_server %>">
+    <div class="mb-3">
+      <%= f.label :video, class: "form-label" %>
+
+      <!-- will be replaced by Uppy -->
+      <%= f.file_field :video,
+        class: "form-control",
+        data: { single_upload_target: "input" } %>
+
+      <!-- for storing cover photo uploaded file data -->
+      <%= f.hidden_field :video,
+        value: @video.cached_video_data,
+        data: { single_upload_target: "result" } %>
+    </div>
+
+    <div class="d-inline-block mt-1 mb-3">
+      <!-- static link to the thumbnail generated on attachment -->
+      <%= video_tag @video.cached_video_data.to_s,
+        width: 700,
+        class: "img-thumbnail file-upload-preview",
+        data: { single_upload_target: "preview" }, controls: "true" %>
+    </div>
+  </div>
+
+
+  <%= f.submit "Save", class: "btn btn-primary" %>
+  <%= link_to videos_path, class: "btn btn-light" do %>
+    &larr; Back to albums
+  <% end %>
+<% end %>

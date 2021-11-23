@@ -11,6 +11,10 @@ module LastnameV2
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.1
 
+    # supports :s3, :s3_multipart, or :app
+    config.upload_server = if ENV["UPLOAD_SERVER"].present?
+      ENV["UPLOAD_SERVER"].to_sym
+    end
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files
