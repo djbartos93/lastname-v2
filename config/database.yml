@@ -21,5 +21,12 @@ test:
   database: db/test.sqlite3
 
 production:
-  <<: *default
-  database: db/production.sqlite3
+production:
+  host: <%= ENV['DO_DATABASE_URL'] %>
+  port: 25060
+  adapter: postgresql
+  encoding: unicode
+  database: lastname-v2
+  username: lastname-v2
+  password: <% ENV['DO_DATABASE_PASSWORD'] %>
+  sslmode: require
