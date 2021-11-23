@@ -12,6 +12,11 @@
     <%= f.text_field :name, class: "form-control" %>
   </div>
 
+  <div class="mb-3">
+    <%= f.label :stream_date, class: "form-label" %>
+    <%= f.date_select :stream_date, class: "form-control" %>
+  </div>
+
   <div data-controller="single-upload" data-single-upload-types-value="<%= VideoUploader::ALLOWED_TYPES.to_json %>" data-single-upload-server-value="<%= upload_server %>">
     <div class="mb-3">
       <%= f.label :video, class: "form-label" %>
@@ -39,6 +44,6 @@
 
   <%= f.submit "Save", class: "btn btn-primary" %>
   <%= link_to videos_path, class: "btn btn-light" do %>
-    &larr; Back to albums
+    &larr; Back to videos
   <% end %>
 <% end %>
